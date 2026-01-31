@@ -1,29 +1,19 @@
-#!/data/data/com.termux/files/usr/bin/bash
-
-echo "======================================"
-echo "     ZeroNokami Rejoin Tool Setup     "
-echo "     Version: 1.0.0 - ZeroNokami      "
-echo "======================================"
-
-# Cấp quyền storage để tải về Download
-termux-setup-storage
-
-pkg update -y && pkg upgrade -y
-pkg install python git -y
-pip install --upgrade pip
-pip install colorama requests
-
-# Tự động tải file tool về /sdcard/Download (giống zam2109)
-echo "Đang tải tool về máy (/sdcard/Download/zero_rejoin.py)..."
-curl -s -o /sdcard/Download/zero_rejoin.py https://raw.githubusercontent.com/zeronokamitinh-sudo/ZeroRejoin/main/zero_rejoin.py
-
-if [ -f "/sdcard/Download/zero_rejoin.py" ]; then
-    echo "Tải thành công! File đã nằm ở /sdcard/Download/zero_rejoin.py"
-else
-    echo "Tải thất bại, kiểm tra mạng hoặc chạy termux-setup-storage lại."
+#!/bin/bash
+cd
+if [ -e "/data/data/com.termux/files/home/storage" ]; then
+    rm -rf /data/data/com.termux/files/home/storage
 fi
-
+termux-setup-storage
+yes | pkg update
+yes | pkg upgrade
+yes | pkg install python
+yes | pkg install python-pip
+pip install requests rich prettytable pytz pycryptodome
+export CFLAGS="-Wno-error=implicit-function-declaration"
+pip install psutil colorama
+curl -Ls "https://raw.githubusercontent.com/zeronokamitinh-sudo/ZeroRejoin/main/zero_rejoin.py" -o /sdcard/Download/zero_rejoin.py
 echo ""
-echo "Setup xong! Chạy tool bằng lệnh này:"
+echo "Setup ZeroNokami hoàn tất!"
+echo "File tool đã tải về: /sdcard/Download/zero_rejoin.py"
+echo "Chạy bằng lệnh:"
 echo 'su -c "export PATH=\$PATH:/data/data/com.termux/files/usr/bin && export TERM=xterm-256color && cd /sdcard/Download && python zero_rejoin.py"'
-echo "Hoặc ngắn gọn (nếu đang ở Download): python zero_rejoin.py"
