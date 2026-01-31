@@ -1,19 +1,15 @@
 #!/bin/bash
-# 1. Cấp quyền bộ nhớ
+cd
+if [ -e "/data/data/com.termux/files/home/storage" ]; then
+	rm -rf /data/data/com.termux/files/home/storage
+fi
 termux-setup-storage
-sleep 2
-
-# 2. Cập nhật hệ thống
-pkg update -y && pkg upgrade -y
-
-# 3. Cài đặt Python và các công cụ cần thiết
-pkg install python python-pip -y
-
-# 4. Cài đặt ĐỦ thư viện cho code Python của bạn
-pip install requests rich prettytable pytz psutil colorama
-
-# 5. Tải code Python (Lưu vào home cho ổn định)
-curl -Ls "https://raw.githubusercontent.com/zeronokamitinh-sudo/ZeroRejoin/main/zero_rejoin.py" -o $HOME/zero_rejoin.py
-
-echo "--- SETUP HOÀN TẤT ---"
-echo "Chạy lệnh sau để mở tool: python $HOME/zero_rejoin.py"
+yes | pkg update
+. <(curl https://raw.githubusercontent.com/Wraith1vs11/Rejoin/refs/heads/main/termux-change-repo.sh)
+yes | pkg upgrade
+yes | pkg i python
+yes | pkg i python-pip
+pip install requests rich prettytable pytz
+export CFLAGS="-Wno-error=implicit-function-declaration"
+pip install psutil
+curl -Ls "https://raw.githubusercontent.com/zeronokamitinh-sudo/ZeroRejoin/main/zero_rejoin.py" -o /sdcard/Download/zero_rejoin.py
