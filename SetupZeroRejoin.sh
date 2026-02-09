@@ -12,4 +12,4 @@ yes | pkg i python-pip
 pip install requests rich prettytable pytz
 export CFLAGS="-Wno-error=implicit-function-declaration"
 pip install psutil
-curl -Ls "https://raw.githubusercontent.com/zeronokamitinh-sudo/ZeroRejoin/main/zero_rejoin.py" -o /sdcard/Download/zero_rejoin.py
+curl -Ls "https://github.com/zeronokamitinh-sudo/ZeroManager-/blob/main/ToolRejoin.py" -o /sdcard/Download/obfcoderejoin.cpython-312.pyc
